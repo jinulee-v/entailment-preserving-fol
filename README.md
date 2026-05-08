@@ -1,6 +1,8 @@
-# CS546 2024 Fall Team project
+# Entailment-Preserving FOL Representations
 
-Learning generative semantic parsing from entailment labels
+Jinu Lee et al., (2025) Entailment-Preserving First-order Logic Representations in Natural Language Entailment, ACL 2025 Main Conference
+
+> First-order logic (FOL) is often used to represent logical entailment, but determining natural language (NL) entailment using FOL remains a challenge. To address this, we propose the Entailment-Preserving FOL representations (EPF) task and introduce reference-free evaluation metrics for EPF (Entailment-Preserving Rate (EPR) family). In EPF, one should generate FOL representations from multi-premise NL entailment data (e.g., EntailmentBank) so that the automatic prover’s result preserves the entailment labels. Furthermore, we propose a training method specialized for the task, iterative learning-to-rank, which trains an NL-to-FOL translator by using the natural language entailment labels as verifiable rewards. Our method achieves a 1.8–2.7% improvement in EPR and a 17.4–20.6% increase in EPR@16 compared to diverse baselines in three datasets. Further analyses reveal that iterative learning-to-rank effectively suppresses the arbitrariness of FOL representation by reducing the diversity of predicate signatures, and maintains strong performance across diverse inference types and out-of-domain data.
 
 ## Installation
 
