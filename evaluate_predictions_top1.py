@@ -12,10 +12,25 @@ def main(args):
         for line in f:
             sentences.append(json.loads(line))
             # DEBUG
-            sentences[-1]["prediction"] = sentences[-1]["prediction"]
+            sentences[-1]["prediction"] = [sentences[-1]["prediction"][0]]
     with open(args.chain_data, "r") as f:
         for line in f:
             chains.append(json.loads(line))
+
+    if args.ignore_syntax_error:
+        new_chains = []
+        for c in chains:
+            is_syntax_error = False
+            for sent_id in c["premises"] + [c["conclusion"]]:
+                for s in sentences:
+                    if s["id"] == sent_id:
+                        if "Error" in s["prediction"][0]:
+                            is_syntax_error = True
+                        break
+            if not is_syntax_error:
+                new_chains.append(c)
+        chains = new_chains
+
 
     if args.output_graph:
         graph_filename = args.sentence_data.replace("_sentences.jsonl", "_entailment_graph.png")
@@ -41,12 +56,7 @@ def main(args):
     print("Connected prediction ratio:", cnt / tot)
 
     # Store the results
-    with open(args.output_prefix + "_entailment_preserving_rate_eval.jsonl", "w") as f:
-        for p in predictions:
-            for q in p:
-                del q["normalized_prediction"]
-                f.write(json.dumps(q, ensure_ascii=False) + "\n")
-    with open(args.output_prefix + "_entailment_preserving_rate_eval_meta.json", "w") as f:
+    with open(args.output_prefix + "_entailment_preserving_rate_eval_top1.json", "w") as f:
         json.dump({
             "f1": f1,
             "confusion_matrix": confusion_matrix,
@@ -65,6 +75,7 @@ if __name__ == "__main__":
     parser.add_argument("--chain_data", type=str, default=None, help="Path to the run chains file.")
     parser.add_argument("--output_prefix", type=str, default=None, help="Path to the output file. Defaults to sentence_data with suffix `_sentences.jsonl` removed")
     parser.add_argument("--output_graph", action="store_true", help="If true, output graph file.")
+    parser.add_argument("--ignore_syntax_error", action="store_true", help="If true, remove any chains that contain syntax error in the program.")
 
     args = parser.parse_args()
 

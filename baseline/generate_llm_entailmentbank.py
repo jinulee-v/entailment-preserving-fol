@@ -76,8 +76,7 @@ Below are instructions for the format of FOL logical formulas:
    - **Biconditional (`<->`)**: If and only if, e.g., `Rains(x) <-> Wet(x)`
 5. **Quantifiers**:
    - **Universal (`all`)**: For all, e.g., `all x. (Human(x) >> Mortal(x))`
-   - **Existential (`exists`)**: There exists, e.g., `exists x. (Human(x) & Smart(x))`
-6. **Equality (`=`)**: e.g., `john = mary`.'''}, 
+   - **Existential (`exists`)**: There exists, e.g., `exists x. (Human(x) & Smart(x))`'''}, 
         {"role": "user", "content": f"{examples}\n\nTranslate the following sentence into FOL:\n\n'{sentence}'"}
     ]
     
