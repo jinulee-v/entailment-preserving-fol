@@ -1,4 +1,5 @@
-for type in "further_specification_or_conjunction" "infer_class_from_properties" "inference_from_rule" "property_inheritance" "sequential_inference" "substitution"
+# for type in "further_specification_or_conjunction" "infer_class_from_properties" "inference_from_rule" "property_inheritance" "sequential_inference" "substitution"
+for type in "sequential_inference" "substitution"
 do
     for round in "0" "1" "2" "3" "4" "5"
     do
